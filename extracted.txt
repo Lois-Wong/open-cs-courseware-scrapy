@@ -1,0 +1,3 @@
+('https://ocw.mit.edu/educator', 'EMAIL', 'chalkradio@mit.edu')
+('https://ocw.mit.edu/educator', 'EMAIL', 'chalkradio@mit.edu')
+('https://ocw.mit.edu/pages/privacy-and-terms-of-use/', 'ADDRESS', 'nCambridge, MA 02139')

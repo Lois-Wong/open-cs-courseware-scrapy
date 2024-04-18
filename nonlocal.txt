@@ -1,0 +1,4 @@
+('https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home', 'Give Now')
+('https://mitocw.zendesk.com/hc/en-us', 'Help & Faqs')
+('https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home', '')
+('https://mitocw.zendesk.com/hc/en-us', 'help & faqs')

@@ -1,0 +1,17 @@
+DEBUG:visited:https://ocw.mit.edu/search/?t=Computer%20Science
+DEBUG:visited:https://ocw.mit.edu/
+DEBUG:visited:https://ocw.mit.edu/about
+DEBUG:visited:https://ocw.mit.edu/contact
+DEBUG:visited:https://ocw.mit.edu/search
+DEBUG:visited:https://ocw.mit.edu/educator
+DEBUG:extracted:('https://ocw.mit.edu/educator', 'EMAIL', 'chalkradio@mit.edu')
+DEBUG:extracted:('https://ocw.mit.edu/educator', 'EMAIL', 'chalkradio@mit.edu')
+DEBUG:visited:https://ocw.mit.edu/search/?f=Instructor%20Insights&s=-runs.best_start_date
+DEBUG:visited:https://ocw.mit.edu/search/?f=Online%20Textbook&s=-runs.best_start_date
+DEBUG:visited:https://ocw.mit.edu/collections/mit-open-learning-library/
+DEBUG:visited:https://ocw.mit.edu/pages/privacy-and-terms-of-use/
+DEBUG:extracted:('https://ocw.mit.edu/pages/privacy-and-terms-of-use/', 'ADDRESS', 'nCambridge, MA 02139')
+DEBUG:visited:https://ocw.mit.edu/search/?f=Online%20Textbook
+DEBUG:visited:https://ocw.mit.edu/contact/
+DEBUG:visited:https://ocw.mit.edu/search/?f=Instructor%20Insights&s=-runs.best_start_date&type=course
+DEBUG:visited:https://ocw.mit.edu/newsletter/
