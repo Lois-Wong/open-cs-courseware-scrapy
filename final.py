@@ -47,12 +47,13 @@ def parse_links(root, html):
 
 def get_links(url):
     driver = webdriver.Chrome() # using Selenium 
-    res = driver.get(url) #link to scrape 
+    driver.get(url) #link to scrape 
+    res = driver.page_source
 
     #res = request.urlopen(url)
     driver.quit() #selenium
 
-    return list(parse_links(url, res.read()))
+    return list(parse_links(url, res))
 
 def is_self_referencing_link(url, link): #check if this is right
     end_of_link = url.rsplit('/', 1)[-1]
@@ -184,7 +185,7 @@ def crawl(root, rp, wanted_content=[], within_domain=True):
     visited = []
     extracted = []
 
-    while not queue.empty() and len(visited) < 200:
+    while not queue.empty(): #and len(visited) < 200
         url = queue.get()
         try:
             if not rp.can_fetch("*", url):
