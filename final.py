@@ -6,6 +6,8 @@ from queue import Queue
 from urllib import parse, request
 from urllib.parse import urlparse
 import heapq
+from urllib.robotparser import RobotFileParser
+from selenium import webdriver 
 
 logging.basicConfig(level=logging.DEBUG, filename='output.log', filemode='w')
 visitlog = logging.getLogger('visited')
@@ -24,11 +26,13 @@ def parse_links_sorted(root, html):
         score = relevance_by_depth(link[0])
         heapq.heappush(heap, (score, link[0]))
 
-
     return heap
 
 
 def parse_links(root, html):
+    
+
+
     soup = BeautifulSoup(html, 'html.parser')
     for link in soup.find_all('a'):
         href = link.get('href')
@@ -42,7 +46,12 @@ def parse_links(root, html):
 
 
 def get_links(url):
-    res = request.urlopen(url)
+    driver = webdriver.Chrome() # using Selenium 
+    res = driver.get(url) #link to scrape 
+
+    #res = request.urlopen(url)
+    driver.quit() #selenium
+
     return list(parse_links(url, res.read()))
 
 def is_self_referencing_link(url, link): #check if this is right
@@ -50,15 +59,26 @@ def is_self_referencing_link(url, link): #check if this is right
     return end_of_link in link
     
 
-def get_nonlocal_links(url):
+def get_nonlocal_links(url, rp):
     '''Get a list of links on the page specificed by the url,
     but only keep non-local links and non self-references.
     Return a list of (link, title) pairs, just like get_links()'''
 
     # TODO: implement
     domain = ""
+    links = get_links(url)
+    filtered = []
 
-    if ("http" in url):
+    for link, title in links: 
+        if not rp.can_fetch("*", link):
+            continue
+        if urlparse(link).netloc != domain:
+            if not is_self_referencing_link(url, link):
+                filtered.append((link, title))
+    return filtered
+
+    ## test remove
+    """ if ("http" in url):
         if("www." in url[0:12]):
             index_of_dot = url.find(".", 7)
             if ("/" in url[11:]):
@@ -72,7 +92,8 @@ def get_nonlocal_links(url):
                 index_of_slash = url.find("/", 8)
                 domain = url[index_of_first:index_of_slash]
             else:
-                domain = url[index_of_first:]
+                domain = url[index_of_first:] 
+
 
     
     links = get_links(url)
@@ -104,9 +125,13 @@ def get_nonlocal_links(url):
         #or is checking that its not self referencing with the url is fine
     
     return filtered 
+    """
 
 def is_within_domain(url, link):
+
+    return urlparse(url).netloc == urlparse(link).netloc
     
+    #test rm 
     domain = ""
 
     if ("http" in url):
@@ -146,7 +171,7 @@ def is_within_domain(url, link):
         else: 
             return False
 
-def crawl(root, wanted_content=[], within_domain=True):
+def crawl(root, rp, wanted_content=[], within_domain=True):
     '''Crawl the url specified by `root`.
     `wanted_content` is a list of content types to crawl
     `within_domain` specifies whether the crawler should limit itself to the domain of `root`
@@ -162,6 +187,8 @@ def crawl(root, wanted_content=[], within_domain=True):
     while not queue.empty() and len(visited) < 200:
         url = queue.get()
         try:
+            if not rp.can_fetch("*", url):
+                continue
             req = request.urlopen(url)
             html = req.read()
 
@@ -169,6 +196,7 @@ def crawl(root, wanted_content=[], within_domain=True):
                 visited.append(url)
                 visitlog.debug(url)
 
+                #test uncomment    
                 for ex in extract_information(url, html):
                     extracted.append(ex)
                     extractlog.debug(ex)
@@ -180,6 +208,20 @@ def crawl(root, wanted_content=[], within_domain=True):
                                 queue.put(link)
                             elif len(wanted_content) > 0 and req.headers['Content-Type'] in wanted_content:
                                 queue.put(link)                
+
+                    soup = BeautifulSoup(html, 'html.parser')
+                    div = soup.find('div', class_='mt-2 lead-sm html-data')
+                    if div:
+                        text = div.text.strip()
+                        extracted.append((url, 'HTML_DATA', text))
+                    for link, title in parse_links(url, html):
+                        if not is_self_referencing_link(url, link): 
+                            if within_domain and is_within_domain(url, link):
+                                if len(wanted_content) == 0: 
+                                    queue.put(link)
+                                elif len(wanted_content) > 0 and req.headers['Content-Type'] in wanted_content:
+                                    queue.put(link)                
+
 
         except Exception as e:
             print(e, url)
@@ -214,15 +256,20 @@ def writelines(filename, data):
 
 
 def main():
+
     site = sys.argv[1]
+
+    rp = RobotFileParser()
+    rp.set_url(parse.urljoin(site, '/robots.txt'))
+    rp.read()
 
     links = get_links(site)
     writelines('links.txt', links)
 
-    nonlocal_links = get_nonlocal_links(site)
+    nonlocal_links = get_nonlocal_links(site, rp)
     writelines('nonlocal.txt', nonlocal_links)
 
-    visited, extracted = crawl(site)
+    visited, extracted = crawl(site, rp)
     writelines('visited.txt', visited)
     writelines('extracted.txt', extracted)
 
