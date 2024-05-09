@@ -1,10 +1,10 @@
-('https://ocw.mit.edu/', '')
-('https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home', 'Give Now')
-('https://ocw.mit.edu/about', 'About OCW')
-('https://mitocw.zendesk.com/hc/en-us', 'Help & Faqs')
-('https://ocw.mit.edu/contact', 'Contact Us')
-('https://ocw.mit.edu/', '')
-('https://giving.mit.edu/give/to/ocw/?utm_source=ocw&utm_medium=homepage_banner&utm_campaign=nextgen_home', '')
-('https://ocw.mit.edu/about', 'about ocw')
-('https://mitocw.zendesk.com/hc/en-us', 'help & faqs')
-('https://ocw.mit.edu/contact', 'contact us')
+https://ocw.mit.edu/courses/6-092-introduction-to-programming-in-java-january-iap-2010/
+https://ocw.mit.edu/courses/2-830j-control-of-manufacturing-processes-sma-6303-spring-2008/
+https://ocw.mit.edu/courses/6-007-electromagnetic-energy-from-motors-to-lasers-spring-2011/
+https://ocw.mit.edu/courses/6-974-fundamentals-of-photonics-quantum-electronics-spring-2006/
+https://ocw.mit.edu/courses/6-453-quantum-optical-communication-fall-2016/
+https://ocw.mit.edu/courses/6-630-electromagnetics-fall-2006/
+https://ocw.mit.edu/courses/6-763-applied-superconductivity-fall-2005/
+https://ocw.mit.edu/courses/6-823-computer-system-architecture-fall-2005/
+https://ocw.mit.edu/courses/6-012-microelectronic-devices-and-circuits-fall-2009/
+https://ocw.mit.edu/courses/6-189-a-gentle-introduction-to-programming-using-python-january-iap-2011/
