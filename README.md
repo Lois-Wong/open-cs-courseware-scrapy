@@ -1,4 +1,4 @@
-To use our code, please navigate to \url{https://colab.research.google.com/drive/1VeXooAxDorZ6R0bOaXWzJmegizkPPWwI?usp=sharing} 
+To use our code, please navigate to https://colab.research.google.com/drive/1VeXooAxDorZ6R0bOaXWzJmegizkPPWwI?usp=sharing
 
 **How to Use our Code**
 
